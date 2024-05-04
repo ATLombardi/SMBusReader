@@ -179,15 +179,19 @@ void drawVoltageAndCurrent () {
   oled.println("V");
 
   // draw current
+  uint16_t abs_current = 0;
   if (current > 50000) // draining
   {
-    oled.print((int)(current*CURRENT_FACTOR));
+    abs_current = 0 - current;
+    oled.print("-");
+    oled.print((int)(abs_current*CURRENT_FACTOR));
     oled.println("mA");
   }
   else if (current != 0) // charging
   {
+    abs_current = current;
     oled.print("+");
-    oled.print((int)(current*CURRENT_FACTOR));
+    oled.print((int)(abs_current*CURRENT_FACTOR));
     oled.println("mA");
   }
   else {
